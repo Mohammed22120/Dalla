@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:Dalla.Views"
+       x:Class="Dalla.AppShell"
+       FlyoutBehavior="Disabled"
+       Shell.NavBarIsVisible="False"
+       Shell.TabBarIsVisible="False">
+
+    <!-- Démarrage : connexion (hors barre d'onglets) -->
+    <ShellContent Route="login" ContentTemplate="{DataTemplate views:LoginPage}" />
+
+    <!-- Application : 4 onglets. La barre native est masquée : Controls/BottomNavBar la remplace -->
+    <TabBar Route="main">
+        <Tab Title="Accueil" Route="home">
+            <ShellContent ContentTemplate="{DataTemplate views:HomePage}" />
+        </Tab>
+        <Tab Title="Dépenses" Route="expenses">
+            <ShellContent ContentTemplate="{DataTemplate views:ExpensesPage}" />
+        </Tab>
+        <Tab Title="Statistiques" Route="stats">
+            <ShellContent ContentTemplate="{DataTemplate views:StatsPage}" />
+        </Tab>
+        <Tab Title="Foyer" Route="foyer">
+            <ShellContent ContentTemplate="{DataTemplate views:HouseholdHubPage}" />
+        </Tab>
+    </TabBar>
+</Shell>

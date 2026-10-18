@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             xmlns:models="clr-namespace:Dalla.Models"
+             x:Class="Dalla.Views.CategoriesPage"
+             Title="Catégories"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="16,16,16,24" Spacing="16">
+
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                <controls:LucideButton Icon="arrow-left" Clicked="OnBackClicked"
+                        SemanticProperties.Description="Retour" />
+                <Label Grid.Column="1" Text="Catégories" Style="{StaticResource H1}" VerticalOptions="Center" />
+            </Grid>
+
+            <Label Text="Les catégories te permettent de voir où part l'argent du foyer."
+                   Style="{StaticResource Secondary}" FontSize="16" />
+
+            <Border Style="{StaticResource Card}" Padding="16,8">
+                <VerticalStackLayout x:Name="CategoryList">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="models:BudgetRow">
+                            <VerticalStackLayout>
+                                <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12" Padding="0,8" MinimumHeightRequest="56">
+                                    <Border WidthRequest="40" HeightRequest="40" StrokeThickness="0"
+                                            BackgroundColor="{Binding CatColor}" VerticalOptions="Center">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="20" />
+                                        </Border.StrokeShape>
+                                        <controls:LucideIcon Name="{Binding Icon}" Size="20" IconColor="White" />
+                                    </Border>
+                                    <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center" />
+                                    <Label Grid.Column="2" Text="{Binding PercentText}" Style="{StaticResource Secondary}"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                                <BoxView Style="{StaticResource Separator}" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+            </Border>
+
+            <Button x:Name="AddButton" Text="Ajouter une catégorie" Style="{StaticResource SecondaryButton}"
+                    Clicked="OnAddClicked" />
+            <Label x:Name="AdminNote" Text="Seul l'administrateur peut ajouter une catégorie."
+                   Style="{StaticResource Secondary}" FontSize="12" IsVisible="False" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

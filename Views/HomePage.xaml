@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             xmlns:models="clr-namespace:Dalla.Models"
+             x:Class="Dalla.Views.HomePage"
+             Title="Accueil">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16,16,16,112" Spacing="16">
+
+                <!-- En-tête -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <VerticalStackLayout Spacing="2">
+                        <Label x:Name="Greeting" Style="{StaticResource H1}" />
+                        <Label x:Name="HouseLabel" Style="{StaticResource Secondary}" />
+                    </VerticalStackLayout>
+                    <controls:AvatarView x:Name="UserAvatar" Grid.Column="1" Size="44" />
+                </Grid>
+
+                <!-- Alerte (corail = dépassé, ambre = presque atteint) -->
+                <Border x:Name="AlertBanner" IsVisible="False" StrokeThickness="2" Padding="12">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="12" />
+                    </Border.StrokeShape>
+                    <Label x:Name="AlertLabel" FontSize="14" FontAttributes="Bold" />
+                </Border>
+
+                <!-- Solde du mois -->
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="8">
+                        <Label x:Name="MonthLabel" Style="{StaticResource Caption}" />
+                        <Label Text="Solde du mois" Style="{StaticResource Secondary}" />
+                        <Label x:Name="BalanceLabel" Style="{StaticResource BigAmount}" HorizontalTextAlignment="Start" />
+                        <ProgressBar x:Name="BudgetProgress" HeightRequest="8" Margin="0,4,0,0" />
+                        <Label x:Name="ProgressText" Style="{StaticResource Secondary}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Raccourcis par catégorie -->
+                <Label Text="Ajout rapide" Style="{StaticResource H2}" />
+                <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                    <HorizontalStackLayout x:Name="Shortcuts" Spacing="12" />
+                </ScrollView>
+
+                <!-- Dernières dépenses -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="Dernières dépenses" Style="{StaticResource H2}" VerticalOptions="Center" />
+                    <Label Grid.Column="1" Text="Tout voir" Style="{StaticResource LinkLabel}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSeeAllTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <Border x:Name="RecentCard" Style="{StaticResource Card}" Padding="16,8">
+                    <VerticalStackLayout x:Name="RecentList">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="models:ExpenseRow">
+                                <VerticalStackLayout>
+                                    <controls:ExpenseRowView />
+                                    <BoxView Style="{StaticResource Separator}" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- État vide -->
+                <Border x:Name="EmptyCard" Style="{StaticResource Card}" IsVisible="False">
+                    <controls:EmptyState x:Name="Empty" Icon="receipt"
+                                         Message="Aucune dépense ce mois-ci. Ajoute la première !"
+                                         ButtonText="Ajouter une dépense" />
+                </Border>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Barre de navigation inférieure -->
+        <controls:BottomNavBar Active="home" />
+    </Grid>
+</ContentPage>

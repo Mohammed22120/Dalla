@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             xmlns:models="clr-namespace:Dalla.Models"
+             x:Class="Dalla.Views.ExpensesPage"
+             Title="Dépenses">
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- En-tête : titre, recherche, filtres -->
+        <VerticalStackLayout Padding="16,16,16,8" Spacing="12">
+            <Label Text="Dépenses" Style="{StaticResource H1}" />
+
+            <Border Style="{StaticResource FieldBorder}" Padding="12,0">
+                <Grid ColumnDefinitions="Auto,*">
+                    <controls:LucideIcon Name="search" Size="20" Muted="True" VerticalOptions="Center" />
+                    <Entry x:Name="SearchEntry" Grid.Column="1" Placeholder="Rechercher une dépense"
+                           TextChanged="OnFilterChanged" ReturnType="Search"
+                           SemanticProperties.Description="Rechercher une dépense" />
+                </Grid>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*,*" ColumnSpacing="8">
+                <Border Style="{StaticResource FieldBorder}" Padding="8,0">
+                    <Picker x:Name="MemberPicker" Title="Membre" SelectedIndexChanged="OnFilterChanged"
+                            FontSize="14" SemanticProperties.Description="Filtrer par membre" />
+                </Border>
+                <Border Grid.Column="1" Style="{StaticResource FieldBorder}" Padding="8,0">
+                    <Picker x:Name="CategoryPicker" Title="Catégorie" SelectedIndexChanged="OnFilterChanged"
+                            FontSize="14" SemanticProperties.Description="Filtrer par catégorie" />
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource FieldBorder}" Padding="8,0">
+                    <Picker x:Name="PeriodPicker" Title="Période" SelectedIndexChanged="OnFilterChanged"
+                            FontSize="14" SemanticProperties.Description="Filtrer par période" />
+                </Border>
+            </Grid>
+        </VerticalStackLayout>
+
+        <!-- Contenu : liste / squelette / vide / erreur -->
+        <Grid Grid.Row="1">
+
+            <!-- Liste groupée par date -->
+            <CollectionView x:Name="List" IsGrouped="True" Margin="16,0" SelectionMode="None"
+                            VerticalScrollBarVisibility="Never">
+                <CollectionView.GroupHeaderTemplate>
+                    <DataTemplate x:DataType="models:ExpenseGroup">
+                        <Label Text="{Binding Title}" Style="{StaticResource Caption}" Padding="0,16,0,4" />
+                    </DataTemplate>
+                </CollectionView.GroupHeaderTemplate>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ExpenseRow">
+                        <VerticalStackLayout>
+                            <controls:ExpenseRowView />
+                            <BoxView Style="{StaticResource Separator}" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <BoxView HeightRequest="112" Color="Transparent" />
+                </CollectionView.Footer>
+            </CollectionView>
+
+            <!-- Chargement : squelette gris sobre (sans animation) -->
+            <VerticalStackLayout x:Name="Skeleton" IsVisible="False" Padding="16,8" Spacing="16">
+                <Grid ColumnDefinitions="44,*,60" ColumnSpacing="12" HeightRequest="48">
+                    <Border x:Name="Sk1" StrokeThickness="0" HeightRequest="44" WidthRequest="44"><Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk1b" Grid.Column="1" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk1c" Grid.Column="2" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                </Grid>
+                <Grid ColumnDefinitions="44,*,60" ColumnSpacing="12" HeightRequest="48">
+                    <Border x:Name="Sk2" StrokeThickness="0" HeightRequest="44" WidthRequest="44"><Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk2b" Grid.Column="1" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk2c" Grid.Column="2" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                </Grid>
+                <Grid ColumnDefinitions="44,*,60" ColumnSpacing="12" HeightRequest="48">
+                    <Border x:Name="Sk3" StrokeThickness="0" HeightRequest="44" WidthRequest="44"><Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk3b" Grid.Column="1" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk3c" Grid.Column="2" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                </Grid>
+                <Grid ColumnDefinitions="44,*,60" ColumnSpacing="12" HeightRequest="48">
+                    <Border x:Name="Sk4" StrokeThickness="0" HeightRequest="44" WidthRequest="44"><Border.StrokeShape><RoundRectangle CornerRadius="22" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk4b" Grid.Column="1" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                    <Border x:Name="Sk4c" Grid.Column="2" StrokeThickness="0" HeightRequest="16" VerticalOptions="Center"><Border.StrokeShape><RoundRectangle CornerRadius="8" /></Border.StrokeShape></Border>
+                </Grid>
+            </VerticalStackLayout>
+
+            <!-- État vide -->
+            <controls:EmptyState x:Name="EmptyView" IsVisible="False" VerticalOptions="Center" Icon="receipt"
+                                 Message="Aucune dépense à afficher. Ajoute la première !"
+                                 ButtonText="Ajouter une dépense" />
+
+            <!-- Erreur réseau -->
+            <controls:EmptyState x:Name="ErrorView" IsVisible="False" VerticalOptions="Center" Icon="wifi-off"
+                                 Message="Connexion impossible. Vérifie ton réseau."
+                                 ButtonText="Réessayer" />
+
+            <controls:BottomNavBar Active="expenses" />
+        </Grid>
+    </Grid>
+</ContentPage>

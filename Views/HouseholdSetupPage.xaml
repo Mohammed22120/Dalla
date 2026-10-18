@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.HouseholdSetupPage"
+             Title="Ton foyer"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="16,16,16,24" Spacing="16">
+
+            <Label Text="Ton foyer" Style="{StaticResource H1}" />
+            <Label Text="Crée ton foyer, ou rejoins celui de ta famille avec un code d'invitation."
+                   Style="{StaticResource Secondary}" FontSize="16" />
+
+            <!-- Deux choix -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button x:Name="CreateTab" Text="Créer mon foyer" Style="{StaticResource PrimaryButton}" Clicked="OnCreateTab" />
+                <Button x:Name="JoinTab" Grid.Column="1" Text="Rejoindre un foyer" Style="{StaticResource SecondaryButton}" Clicked="OnJoinTab" />
+            </Grid>
+
+            <!-- Créer -->
+            <VerticalStackLayout x:Name="CreatePanel" Spacing="16">
+                <controls:FieldView x:Name="HouseName" Title="Nom du foyer" Placeholder="Famille Ismaïla" />
+
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Devise" Style="{StaticResource Secondary}" />
+                    <Border Style="{StaticResource FieldBorder}" Padding="12,0">
+                        <Picker x:Name="CurrencyPicker" Title="Choisis une devise"
+                                SemanticProperties.Description="Devise" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <controls:FieldView x:Name="InitialBudget" Title="Budget mensuel initial" Placeholder="700 000" KeyboardType="Numeric" />
+
+                <Button x:Name="CreateButton" Text="Créer mon foyer" Style="{StaticResource PrimaryButton}"
+                        IsEnabled="False" Clicked="OnCreateClicked" />
+            </VerticalStackLayout>
+
+            <!-- Rejoindre -->
+            <VerticalStackLayout x:Name="JoinPanel" Spacing="16" IsVisible="False">
+                <controls:FieldView x:Name="Code" Title="Code d'invitation" Placeholder="DALLA-XXXX" />
+                <Label Text="Demande le code à l'administrateur du foyer. Démo : DALLA-7K2P"
+                       Style="{StaticResource Secondary}" FontSize="12" />
+                <Button x:Name="JoinButton" Text="Rejoindre le foyer" Style="{StaticResource PrimaryButton}"
+                        IsEnabled="False" Clicked="OnJoinClicked" />
+            </VerticalStackLayout>
+
+            <ActivityIndicator x:Name="Loader" IsRunning="False" IsVisible="False" HeightRequest="28" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

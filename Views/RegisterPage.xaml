@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.RegisterPage"
+             Title="Inscription"
+             Shell.TabBarIsVisible="False">
+    <ScrollView>
+        <VerticalStackLayout Padding="16,16,16,24" Spacing="16">
+
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                <controls:LucideButton Icon="arrow-left" Clicked="OnBackClicked"
+                        SemanticProperties.Description="Retour" />
+                <Label Grid.Column="1" Text="Créer mon compte" Style="{StaticResource H1}" VerticalOptions="Center" />
+            </Grid>
+
+            <controls:FieldView x:Name="FullName" Title="Nom complet" Placeholder="Ismaïla Bello" />
+            <controls:FieldView x:Name="Email" Title="E-mail" Placeholder="prenom@exemple.cm" KeyboardType="Email" />
+
+            <VerticalStackLayout Spacing="8">
+                <controls:FieldView x:Name="Password" Title="Mot de passe" Placeholder="8 caractères minimum" IsPassword="True" />
+                <!-- Indicateur de force : 3 segments + texte (jamais la couleur seule) -->
+                <Grid ColumnDefinitions="*,*,*" ColumnSpacing="6">
+                    <BoxView x:Name="Seg1" HeightRequest="6" CornerRadius="3" />
+                    <BoxView x:Name="Seg2" Grid.Column="1" HeightRequest="6" CornerRadius="3" />
+                    <BoxView x:Name="Seg3" Grid.Column="2" HeightRequest="6" CornerRadius="3" />
+                </Grid>
+                <Label x:Name="StrengthLabel" Style="{StaticResource Secondary}" Text="Force du mot de passe : —" />
+            </VerticalStackLayout>
+
+            <controls:FieldView x:Name="Confirm" Title="Confirmation du mot de passe" Placeholder="Retape ton mot de passe" IsPassword="True" />
+
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                <CheckBox x:Name="Terms" CheckedChanged="OnTermsChanged"
+                          SemanticProperties.Description="J'accepte les conditions" />
+                <Label Grid.Column="1" Text="J'accepte les conditions d'utilisation" VerticalOptions="Center">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnTermsLabelTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </Grid>
+            <Label x:Name="TermsError" IsVisible="False" FontSize="14" Text="Accepte les conditions pour continuer."
+                   TextColor="{AppThemeBinding Light={StaticResource Expense}, Dark={StaticResource ExpenseDark}}" />
+
+            <Button x:Name="CreateButton" Text="Créer mon compte" Style="{StaticResource PrimaryButton}"
+                    IsEnabled="False" Clicked="OnCreateClicked" />
+            <ActivityIndicator x:Name="Loader" IsRunning="False" IsVisible="False" HeightRequest="28" />
+
+            <Label Text="Déjà inscrit ? Se connecter" Style="{StaticResource LinkLabel}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnLoginLinkTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

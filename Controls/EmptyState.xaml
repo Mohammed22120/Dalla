@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Controls.EmptyState">
+    <VerticalStackLayout Spacing="16" Padding="24,32" HorizontalOptions="Fill">
+        <controls:LucideIcon x:Name="IconView" Size="56" StrokeWidth="1.5" Muted="True" />
+        <Label x:Name="MessageLabel" HorizontalTextAlignment="Center" />
+        <Button x:Name="ActionButton"
+                Style="{StaticResource PrimaryButton}"
+                HorizontalOptions="Center"
+                Padding="24,0"
+                Clicked="OnActionClicked" />
+    </VerticalStackLayout>
+</ContentView>

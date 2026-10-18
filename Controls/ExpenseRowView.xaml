@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             xmlns:models="clr-namespace:Dalla.Models"
+             x:Class="Dalla.Controls.ExpenseRowView"
+             x:DataType="models:ExpenseRow">
+    <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="12" Padding="0,8" MinimumHeightRequest="56">
+        <Grid.GestureRecognizers>
+            <TapGestureRecognizer Tapped="OnTapped" />
+        </Grid.GestureRecognizers>
+
+        <!-- Icône de catégorie -->
+        <Border Grid.Column="0" WidthRequest="44" HeightRequest="44" VerticalOptions="Center"
+                BackgroundColor="{Binding CatColor}" StrokeThickness="0">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="22" />
+            </Border.StrokeShape>
+            <controls:LucideIcon Name="{Binding Icon}" Size="22" IconColor="White" />
+        </Border>
+
+        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+            <Label Text="{Binding Label}" FontSize="16" LineBreakMode="TailTruncation" MaxLines="1" />
+            <Label Text="{Binding Sub}" Style="{StaticResource Secondary}" FontSize="12"
+                   LineBreakMode="TailTruncation" MaxLines="1" />
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Grid.Column="2" VerticalOptions="Center" Spacing="4" HorizontalOptions="End">
+            <Label Text="{Binding AmountText}" Style="{StaticResource ExpenseAmount}" FontSize="15" />
+            <controls:AvatarView Initial="{Binding Initial}" AvatarColor="{Binding MemberColor}"
+                                 Size="22" HorizontalOptions="End" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentView>

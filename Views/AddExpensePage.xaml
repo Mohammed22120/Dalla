@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.AddExpensePage"
+             Title="Ajouter une dépense"
+             Shell.TabBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16,16,16,96" Spacing="16">
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                    <controls:LucideButton Icon="arrow-left" Clicked="OnCancelClicked"
+                            SemanticProperties.Description="Retour" />
+                    <Label x:Name="PageTitle" Grid.Column="1" Text="Ajouter une dépense"
+                           Style="{StaticResource H1}" VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Montant -->
+                <controls:FieldView x:Name="Amount" Title="Montant" Placeholder="0" KeyboardType="Numeric" />
+
+                <!-- Catégorie (sélecteur à icônes) -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Catégorie" Style="{StaticResource Secondary}" />
+                    <FlexLayout x:Name="CategoryGrid" Wrap="Wrap" JustifyContent="Start" />
+                </VerticalStackLayout>
+
+                <!-- Membre (pré-rempli avec l'utilisateur) -->
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Qui a payé ?" Style="{StaticResource Secondary}" />
+                    <FlexLayout x:Name="MemberRow" Wrap="Wrap" JustifyContent="Start" />
+                </VerticalStackLayout>
+
+                <!-- Date (aujourd'hui par défaut) -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Date" Style="{StaticResource Secondary}" />
+                    <Border Style="{StaticResource FieldBorder}" Padding="12,0">
+                        <DatePicker x:Name="DatePick" Format="dd MMMM yyyy" SemanticProperties.Description="Date de la dépense" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <!-- Note facultative -->
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="Note (facultatif)" Style="{StaticResource Secondary}" />
+                    <Border Style="{StaticResource FieldBorder}" Padding="12,4">
+                        <Editor x:Name="NoteEditor" Placeholder="Ex. : courses de la semaine"
+                                HeightRequest="80" AutoSize="TextChanges" MaxLength="140" />
+                    </Border>
+                </VerticalStackLayout>
+
+                <Button x:Name="SaveButton" Text="Enregistrer" Style="{StaticResource PrimaryButton}"
+                        IsEnabled="False" Clicked="OnSaveClicked" />
+                <Button Text="Annuler" Style="{StaticResource SecondaryButton}" Clicked="OnCancelClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!-- Confirmation après enregistrement -->
+        <Border x:Name="Snack" Style="{StaticResource Snack}">
+            <Label Style="{StaticResource SnackLabel}" />
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.ExpenseDetailPage"
+             Title="Détail de la dépense"
+             Shell.TabBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16,16,16,24" Spacing="16">
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                    <controls:LucideButton Icon="arrow-left" Clicked="OnBackClicked"
+                            SemanticProperties.Description="Retour" />
+                    <Label Grid.Column="1" Text="Détail de la dépense" Style="{StaticResource H1}" VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Montant principal -->
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                        <Border x:Name="CatBadge" WidthRequest="56" HeightRequest="56" StrokeThickness="0" HorizontalOptions="Center">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="28" />
+                            </Border.StrokeShape>
+                            <controls:LucideIcon x:Name="CatIcon" Size="28" IconColor="White" />
+                        </Border>
+                        <Label x:Name="LabelText" Style="{StaticResource H2}" HorizontalTextAlignment="Center" />
+                        <Label x:Name="AmountLabel" Style="{StaticResource BigAmount}" HorizontalTextAlignment="Center"
+                               TextColor="{AppThemeBinding Light={StaticResource Expense}, Dark={StaticResource ExpenseDark}}" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Infos -->
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Catégorie" Style="{StaticResource Secondary}" />
+                            <Label x:Name="CatName" Grid.Column="1" />
+                        </Grid>
+                        <BoxView Style="{StaticResource Separator}" />
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="8">
+                            <Label Text="Payé par" Style="{StaticResource Secondary}" VerticalOptions="Center" />
+                            <HorizontalStackLayout Grid.Column="1" Spacing="8">
+                                <controls:AvatarView x:Name="MemberAvatar" Size="28" />
+                                <Label x:Name="MemberName" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                        </Grid>
+                        <BoxView Style="{StaticResource Separator}" />
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label Text="Date" Style="{StaticResource Secondary}" />
+                            <Label x:Name="DateLabel" Grid.Column="1" />
+                        </Grid>
+                        <BoxView Style="{StaticResource Separator}" />
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Note" Style="{StaticResource Secondary}" />
+                            <Label x:Name="NoteLabel" />
+                        </VerticalStackLayout>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Modifier" Style="{StaticResource PrimaryButton}" Clicked="OnEditClicked" />
+                <Button Text="Supprimer" Style="{StaticResource DangerButton}" Clicked="OnDeleteClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border x:Name="Snack" Style="{StaticResource Snack}">
+            <Label Style="{StaticResource SnackLabel}" />
+        </Border>
+    </Grid>
+</ContentPage>

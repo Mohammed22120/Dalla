@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.SettingsPage"
+             Title="Profil et paramètres"
+             Shell.TabBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16,16,16,24" Spacing="16">
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                    <controls:LucideButton Icon="arrow-left" Clicked="OnBackClicked"
+                            SemanticProperties.Description="Retour" />
+                    <Label Grid.Column="1" Text="Profil et paramètres" Style="{StaticResource H1}" VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Compte -->
+                <Border Style="{StaticResource Card}">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="16">
+                        <controls:AvatarView x:Name="Avatar" Size="56" />
+                        <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" Spacing="2">
+                            <Label x:Name="NameLabel" Style="{StaticResource H2}" />
+                            <Label x:Name="EmailLabel" Style="{StaticResource Secondary}" />
+                            <Label x:Name="RoleLabel" Style="{StaticResource Caption}" />
+                        </VerticalStackLayout>
+                    </Grid>
+                </Border>
+
+                <!-- Préférences -->
+                <Label Text="Préférences" Style="{StaticResource H2}" />
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="16">
+
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Devise" Style="{StaticResource Secondary}" />
+                            <Border Style="{StaticResource FieldBorder}" Padding="12,0">
+                                <Picker x:Name="CurrencyPicker" SelectedIndexChanged="OnCurrencyChanged"
+                                        SemanticProperties.Description="Devise" />
+                            </Border>
+                        </VerticalStackLayout>
+
+                        <VerticalStackLayout Spacing="4">
+                            <Label Text="Thème" Style="{StaticResource Secondary}" />
+                            <Border Style="{StaticResource FieldBorder}" Padding="12,0">
+                                <Picker x:Name="ThemePicker" SelectedIndexChanged="OnThemeChanged"
+                                        SemanticProperties.Description="Thème" />
+                            </Border>
+                            <Label Text="Le mode sombre économise la batterie sur les écrans OLED."
+                                   Style="{StaticResource Secondary}" FontSize="12" />
+                        </VerticalStackLayout>
+
+                        <Grid ColumnDefinitions="*,Auto" MinimumHeightRequest="48">
+                            <Label Text="Notifications d'alerte" VerticalOptions="Center" />
+                            <Switch x:Name="AlertSwitch" Grid.Column="1" Toggled="OnAlertToggled"
+                                    SemanticProperties.Description="Notifications d'alerte" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Mode démo : pour tester les états -->
+                <Label Text="Mode démo (pour tester les états)" Style="{StaticResource H2}" />
+                <Border Style="{StaticResource Card}">
+                    <VerticalStackLayout Spacing="12">
+                        <Grid ColumnDefinitions="*,Auto" MinimumHeightRequest="48">
+                            <Label Text="Simuler une erreur réseau" VerticalOptions="Center" />
+                            <Switch x:Name="NetSwitch" Grid.Column="1" Toggled="OnNetToggled"
+                                    SemanticProperties.Description="Simuler une erreur réseau" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto" MinimumHeightRequest="48">
+                            <Label Text="Simuler un foyer à un seul membre" VerticalOptions="Center" />
+                            <Switch x:Name="SoloSwitch" Grid.Column="1" Toggled="OnSoloToggled"
+                                    SemanticProperties.Description="Simuler un foyer à un seul membre" />
+                        </Grid>
+                        <Grid ColumnDefinitions="*,Auto" MinimumHeightRequest="48">
+                            <Label Text="Je suis l'administrateur du foyer" VerticalOptions="Center" />
+                            <Switch x:Name="AdminSwitch" Grid.Column="1" Toggled="OnAdminToggled"
+                                    SemanticProperties.Description="Je suis l'administrateur du foyer" />
+                        </Grid>
+                        <Button Text="Vider les dépenses (état vide)" Style="{StaticResource SecondaryButton}" Clicked="OnClearClicked" />
+                        <Button Text="Restaurer les données d'exemple" Style="{StaticResource SecondaryButton}" Clicked="OnRestoreClicked" />
+                    </VerticalStackLayout>
+                </Border>
+
+                <Button Text="Se déconnecter" Style="{StaticResource DangerButton}" Clicked="OnLogoutClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border x:Name="Snack" Style="{StaticResource Snack}">
+            <Label Style="{StaticResource SnackLabel}" />
+        </Border>
+    </Grid>
+</ContentPage>

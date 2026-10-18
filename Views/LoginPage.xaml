@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.LoginPage"
+             Title="Connexion">
+    <ScrollView>
+        <VerticalStackLayout Padding="16,40,16,24" Spacing="16">
+
+            <!-- Logo + nom -->
+            <VerticalStackLayout Spacing="8" HorizontalOptions="Center">
+                <GraphicsView x:Name="Logo" WidthRequest="96" HeightRequest="96" HorizontalOptions="Center"
+                              SemanticProperties.Description="Logo Dalla : une maison et une pièce" />
+                <Label Text="Dalla" Style="{StaticResource H1}" FontSize="32" HorizontalTextAlignment="Center" />
+                <Label Text="Le budget de la famille, simplement." Style="{StaticResource Secondary}"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+            <Label Text="Content de te revoir" Style="{StaticResource H2}" Margin="0,16,0,0" />
+
+            <!-- Bandeau d'erreur général -->
+            <Border x:Name="ErrorBanner" IsVisible="False" Style="{StaticResource Card}"
+                    Stroke="{AppThemeBinding Light={StaticResource Expense}, Dark={StaticResource ExpenseDark}}"
+                    StrokeThickness="2" Padding="12">
+                <Label x:Name="ErrorBannerLabel" FontSize="14"
+                       TextColor="{AppThemeBinding Light={StaticResource Expense}, Dark={StaticResource ExpenseDark}}" />
+            </Border>
+
+            <controls:FieldView x:Name="Email" Title="E-mail" Placeholder="prenom@exemple.cm" KeyboardType="Email" />
+            <controls:FieldView x:Name="Password" Title="Mot de passe" Placeholder="Ton mot de passe" IsPassword="True" />
+
+            <Button x:Name="LoginButton" Text="Se connecter" Style="{StaticResource PrimaryButton}"
+                    IsEnabled="False" Clicked="OnLoginClicked" />
+            <ActivityIndicator x:Name="Loader" IsRunning="False" IsVisible="False" HeightRequest="28" />
+
+            <Label Text="Mot de passe oublié ?" Style="{StaticResource LinkLabel}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnForgotTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Créer un compte" Style="{StaticResource LinkLabel}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnRegisterTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+            <Label Text="Démo : e-mail valide + mot de passe « dalla123 »" Style="{StaticResource Secondary}"
+                   FontSize="12" HorizontalTextAlignment="Center" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Dalla.Controls"
+             x:Class="Dalla.Views.BudgetPage"
+             Title="Budget mensuel"
+             Shell.TabBarIsVisible="False">
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="16,16,16,24" Spacing="16">
+
+                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="4">
+                    <controls:LucideButton Icon="arrow-left" Clicked="OnBackClicked"
+                            SemanticProperties.Description="Retour" />
+                    <Label Grid.Column="1" Text="Budget mensuel" Style="{StaticResource H1}" VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Réservé à l'administrateur -->
+                <Border x:Name="LockedBanner" IsVisible="False" Style="{StaticResource Card}" Padding="12">
+                    <Grid ColumnDefinitions="Auto,*" ColumnSpacing="10">
+                        <controls:LucideIcon Name="lock" Size="18" Muted="True" VerticalOptions="Start" Margin="0,1,0,0" />
+                        <Label Grid.Column="1" Text="Seul l'administrateur peut modifier les budgets. Tu peux les consulter."
+                               FontSize="14" />
+                    </Grid>
+                </Border>
+
+                <controls:FieldView x:Name="GlobalField" Title="Budget global du mois" KeyboardType="Numeric" />
+
+                <Label Text="Budget par catégorie" Style="{StaticResource H2}" />
+                <VerticalStackLayout x:Name="CategoryRows" Spacing="12" />
+
+                <Button x:Name="SaveButton" Text="Enregistrer les budgets" Style="{StaticResource PrimaryButton}"
+                        Clicked="OnSaveClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <Border x:Name="Snack" Style="{StaticResource Snack}">
+            <Label Style="{StaticResource SnackLabel}" />
+        </Border>
+    </Grid>
+</ContentPage>
