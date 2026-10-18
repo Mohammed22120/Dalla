@@ -1,8 +1,6 @@
 # Dalla — front-end .NET MAUI (BudgetFamille)
 
-Application mobile de gestion de budget familial. Ce projet contient **uniquement le front-end** :
-les 12 écrans du cahier des charges graphique, avec des données d'exemple (« Famille Ismaïla », montants en FCFA).
-Aucun serveur ni base de données : tout est en mémoire.
+Application mobile de gestion de budget familial. 
 
 ## Lancer le projet dans Visual Studio
 
@@ -18,9 +16,8 @@ Aucun serveur ni base de données : tout est en mémoire.
 
 ## Se connecter (démo)
 
-- E-mail : n'importe quelle adresse valide, par exemple `ismaila@exemple.cm`
+- E-mail : n'importe quelle adresse valide, 
 - Mot de passe : `dalla123` (tout autre mot de passe affiche l'erreur « identifiants incorrects »)
-- Mot de passe oublié : `ismaila@exemple.cm` est connu ; une autre adresse affiche l'erreur « aucun compte ».
 - Code d'invitation pour « Rejoindre un foyer » : `DALLA-7K2P`
 
 ## Correspondance avec le cahier des charges
